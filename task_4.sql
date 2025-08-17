@@ -1,0 +1,18 @@
+-- task_4.sql
+-- Print a DESCRIBE-like full description of the table `books` in the current database
+SELECT
+  COLUMN_NAME AS `Field`,
+  COLUMN_TYPE AS `Type`,
+  CASE WHEN IS_NULLABLE = 'YES' THEN 'YES' ELSE 'NO' END AS `Null`,
+  CASE
+    WHEN COLUMN_KEY = 'PRI' THEN 'PRI'
+    WHEN COLUMN_KEY = 'UNI' THEN 'UNI'
+    WHEN COLUMN_KEY = 'MUL' THEN 'MUL'
+    ELSE ''
+  END AS `Key`,
+  COLUMN_DEFAULT AS `Default`,
+  EXTRA AS `Extra`
+FROM INFORMATION_SCHEMA.COLUMNS
+WHERE TABLE_SCHEMA = DATABASE()
+  AND LOWER(TABLE_NAME) = 'books'
+ORDER BY ORDINAL_POSITION;
