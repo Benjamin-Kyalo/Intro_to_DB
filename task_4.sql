@@ -1,5 +1,4 @@
 -- task_4.sql
--- Print a DESCRIBE-like full description of the table `books` in the current database
 SELECT
   COLUMN_NAME AS `Field`,
   COLUMN_TYPE AS `Type`,
