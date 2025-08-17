@@ -1,38 +1,38 @@
 -- task_2.sql
--- PostgreSQL DDL: creates the alx_book_store schema and tables
+-- PostgreSQL DDL for alx_book_store
 
 CREATE SCHEMA IF NOT EXISTS alx_book_store;
 SET search_path TO alx_book_store, public;
 
-CREATE TABLE IF NOT EXISTS authors (
-  author_id SERIAL PRIMARY KEY,
-  author_name VARCHAR(215) NOT NULL
+CREATE TABLE IF NOT EXISTS Authors (
+  AuthorID SERIAL PRIMARY KEY,
+  AuthorName VARCHAR(215) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS books (
-  book_id SERIAL PRIMARY KEY,
-  title VARCHAR(130) NOT NULL,
-  author_id INT NOT NULL REFERENCES authors(author_id),
-  price DOUBLE PRECISION NOT NULL,
-  publication_date DATE
+CREATE TABLE IF NOT EXISTS Books (
+  BookID SERIAL PRIMARY KEY,
+  Title VARCHAR(130) NOT NULL,
+  AuthorID INT NOT NULL REFERENCES Authors(AuthorID),
+  Price DOUBLE PRECISION NOT NULL,
+  PublicationDate DATE
 );
 
-CREATE TABLE IF NOT EXISTS customers (
-  customer_id SERIAL PRIMARY KEY,
-  customer_name VARCHAR(215) NOT NULL,
-  email VARCHAR(215) NOT NULL UNIQUE,
-  address TEXT
+CREATE TABLE IF NOT EXISTS Customers (
+  CustomerID SERIAL PRIMARY KEY,
+  CustomerName VARCHAR(215) NOT NULL,
+  Email VARCHAR(215) NOT NULL UNIQUE,
+  Address TEXT
 );
 
-CREATE TABLE IF NOT EXISTS orders (
-  order_id SERIAL PRIMARY KEY,
-  customer_id INT NOT NULL REFERENCES customers(customer_id),
-  order_date DATE NOT NULL
+CREATE TABLE IF NOT EXISTS Orders (
+  OrderID SERIAL PRIMARY KEY,
+  CustomerID INT NOT NULL REFERENCES Customers(CustomerID),
+  OrderDate DATE NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS order_details (
-  orderdetailid SERIAL PRIMARY KEY,
-  order_id INT NOT NULL REFERENCES orders(order_id) ON DELETE CASCADE,
-  book_id INT NOT NULL REFERENCES books(book_id),
-  quantity DOUBLE PRECISION NOT NULL
+CREATE TABLE IF NOT EXISTS Order_Details (
+  OrderDetailID SERIAL PRIMARY KEY,
+  OrderID INT NOT NULL REFERENCES Orders(OrderID) ON DELETE CASCADE,
+  BookID INT NOT NULL REFERENCES Books(BookID),
+  Quantity DOUBLE PRECISION NOT NULL
 );
